@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./admin:/app
+      - /app/node_modules
+    ports:
+      - "${ADMIN_PORT}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    command: npm run dev -- -p 3000
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - "${CLIENT_PORT}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    command: npm run dev -- -p 3000
